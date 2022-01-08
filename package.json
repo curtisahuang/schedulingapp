@@ -1,12 +1,26 @@
 {
   "name": "schedulingapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a small project to help me manage my tutoring scheduling",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/curtisahuang/schedulingapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/curtisahuang/schedulingapp/issues"
+  },
+  "homepage": "https://github.com/curtisahuang/schedulingapp#readme",
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "prisma": "^3.7.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
 }
