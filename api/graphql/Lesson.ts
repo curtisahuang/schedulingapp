@@ -19,9 +19,12 @@ export const PostQuery = extendType({
     definition(t) {
         t.nonNull.list.field('records', {
             type: 'Lesson',
-            resolve() {
-                return [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0 }]
-              },
+            // resolve() {
+            //     return [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0 }]
+            //   },
+            resolve(_root, _args, ctx) {
+                return ctx.db.lessons.filter(lesson => lesson.id > 1)
+            },
         })
     },
 })
