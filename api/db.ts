@@ -6,6 +6,7 @@ export interface Lesson {
     student: string
     duration: number
     hourly_rate: number
+    paid: boolean
 }
 
 export interface Db {
@@ -13,5 +14,5 @@ export interface Db {
 }
 
 export const db: Db = {
-    lessons: [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0 }],
+    lessons: [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0, paid: false }],
 }

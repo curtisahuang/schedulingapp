@@ -34,9 +34,11 @@ export interface NexusGenObjects {
     hourly_rate?: number | null; // Int
     id?: number | null; // Int
     month?: number | null; // Int
+    paid?: boolean | null; // Boolean
     student?: string | null; // String
     year?: number | null; // Int
   }
+  Mutation: {};
   Query: {};
 }
 
@@ -57,10 +59,16 @@ export interface NexusGenFieldTypes {
     hourly_rate: number | null; // Int
     id: number | null; // Int
     month: number | null; // Int
+    paid: boolean | null; // Boolean
     student: string | null; // String
     year: number | null; // Int
   }
+  Mutation: { // field return type
+    addLesson: NexusGenRootTypes['Lesson']; // Lesson!
+    togglePaid: NexusGenRootTypes['Lesson'] | null; // Lesson
+  }
   Query: { // field return type
+    lessons: Array<NexusGenRootTypes['Lesson'] | null> | null; // [Lesson]
     records: Array<NexusGenRootTypes['Lesson'] | null>; // [Lesson]!
   }
 }
@@ -72,15 +80,34 @@ export interface NexusGenFieldTypeNames {
     hourly_rate: 'Int'
     id: 'Int'
     month: 'Int'
+    paid: 'Boolean'
     student: 'String'
     year: 'Int'
   }
+  Mutation: { // field return type name
+    addLesson: 'Lesson'
+    togglePaid: 'Lesson'
+  }
   Query: { // field return type name
+    lessons: 'Lesson'
     records: 'Lesson'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    addLesson: { // args
+      day: number; // Int!
+      duration: number; // Float!
+      hourly_rate: number; // Int!
+      month: number; // Int!
+      student: string; // String!
+      year: number; // Int!
+    }
+    togglePaid: { // args
+      id: number; // Int!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

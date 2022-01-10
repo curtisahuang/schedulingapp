@@ -8,10 +8,17 @@ type Lesson {
   hourly_rate: Int
   id: Int
   month: Int
+  paid: Boolean
   student: String
   year: Int
 }
 
+type Mutation {
+  addLesson(day: Int!, duration: Float!, hourly_rate: Int!, month: Int!, student: String!, year: Int!): Lesson!
+  togglePaid(id: Int!): Lesson
+}
+
 type Query {
+  lessons: [Lesson]
   records: [Lesson]!
 }

@@ -1,5 +1,4 @@
-import { objectType } from "nexus";
-import { extendType } from "nexus";
+import { objectType, extendType, stringArg, nonNull, intArg, floatArg } from "nexus";
 
 export const Lesson = objectType({
     name: 'Lesson',
@@ -11,6 +10,7 @@ export const Lesson = objectType({
         t.string('student')
         t.float('duration')
         t.int('hourly_rate')
+        t.boolean('paid')
     },
 })
 
@@ -19,12 +19,60 @@ export const PostQuery = extendType({
     definition(t) {
         t.nonNull.list.field('records', {
             type: 'Lesson',
-            // resolve() {
-            //     return [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0 }]
-            //   },
             resolve(_root, _args, ctx) {
-                return ctx.db.lessons.filter(lesson => lesson.id > 1)
+                return ctx.db.lessons.filter(lesson => lesson.paid === false)
+            },
+        })
+        t.list.field('lessons', {
+            type: 'Lesson',
+            resolve(_root, _args, ctx) {
+                return ctx.db.lessons.filter(lesson => lesson.paid === true)
             },
         })
     },
+})
+
+export const LessonMutation = extendType({
+    type: 'Mutation',
+    definition(t) {
+        t.nonNull.field('addLesson', {
+            type: 'Lesson',
+            args: {
+                year: nonNull(intArg()),
+                month: nonNull(intArg()),
+                day: nonNull(intArg()),
+                student: nonNull(stringArg()),
+                duration: nonNull(floatArg()),
+                hourly_rate: nonNull(intArg())
+            },
+            resolve(_root, args, ctx) {
+                const newLesson = {
+                    id: ctx.db.lessons.length + 1,
+                    year: args.year,
+                    month: args.month,
+                    day: args.day,
+                    student: args.student,
+                    duration: args.duration,
+                    hourly_rate: args.hourly_rate,
+                    paid: false,
+                }
+                ctx.db.lessons.push(newLesson)
+                return newLesson
+            }
+        })
+        t.field('togglePaid', {
+            type: 'Lesson',
+            args: {
+                id: nonNull(intArg())
+            },
+            resolve(_root, args, ctx) {
+                let paidLesson = ctx.db.lessons.find(lesson => lesson.id === args.id)
+                if (!paidLesson) {
+                    throw new Error('Could not find lesson with ')
+                }
+                paidLesson.paid = !(paidLesson.paid)
+                return paidLesson
+            }
+        })
+    }
 })
