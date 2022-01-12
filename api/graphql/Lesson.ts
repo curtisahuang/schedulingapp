@@ -14,7 +14,7 @@ export const Lesson = objectType({
     },
 })
 
-export const PostQuery = extendType({
+export const LessonQuery = extendType({
     type: 'Query',
     definition(t) {
         t.nonNull.list.field('records', {

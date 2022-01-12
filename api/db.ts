@@ -14,5 +14,6 @@ export interface Db {
 }
 
 export const db: Db = {
-    lessons: [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0, paid: false }],
+    // lessons: [{ id: 1, year: 2021, month: 1, day: 1, student: 'test', duration: 0, hourly_rate: 0, paid: false }],
+    lessons: []
 }
